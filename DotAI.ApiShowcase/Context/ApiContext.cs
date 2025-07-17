@@ -5,8 +5,9 @@ namespace DotAI.ApiShowcase.Context
 {
     public class ApiContext : DbContext
     {
-        public ApiContext(DbContextOptions<ApiContext> options) : base(options)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            optionsBuilder.UseSqlServer("Server=DESKTOP-4UQ0AMN\\SQLEXPRESS01;initial catalog=ApiAIDb;integrated security=true;trustservercertificate=true");
         }
 
         public DbSet<Customer> Customers { get; set; }

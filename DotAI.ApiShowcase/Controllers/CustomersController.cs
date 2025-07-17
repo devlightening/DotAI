@@ -1,7 +1,7 @@
 ﻿using DotAI.ApiShowcase.Context;
 using DotAI.ApiShowcase.Entites;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore; // Async için
 
 namespace DotAI.ApiShowcase.Controllers
 {
@@ -16,17 +16,19 @@ namespace DotAI.ApiShowcase.Controllers
             _context = context;
         }
 
-        [HttpGet("GetCustomer")]
-        public IActionResult GetCustomers()
+        // Tüm müşterileri getir (async)
+        [HttpGet]
+        public async Task<IActionResult> GetCustomers()
         {
-            var customers = _context.Customers.ToList();
+            var customers = await _context.Customers.ToListAsync();
             return Ok(customers);
         }
 
+        // Tek müşteri getir (id ile)
         [HttpGet("{id}")]
-        public IActionResult GetCustomer(int id)
+        public async Task<IActionResult> GetCustomer(int id)
         {
-            var customer = _context.Customers.FirstOrDefault(c => c.CustomerId == id);
+            var customer = await _context.Customers.FirstOrDefaultAsync(c => c.CustomerId == id);
             if (customer == null)
             {
                 return NotFound();
@@ -34,44 +36,79 @@ namespace DotAI.ApiShowcase.Controllers
             return Ok(customer);
         }
 
+        // Yeni müşteri oluştur
         [HttpPost]
-        public IActionResult CreateCustomer(Customer customer)
+        public async Task<IActionResult> CreateCustomer([FromBody] Customer customer)
         {
             if (customer == null)
             {
-                return BadRequest("Customer cannot be null");
+                return BadRequest("Müşteri bilgileri eksik.");
             }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             _context.Customers.Add(customer);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
+
+            // CreatedAtAction ile yeni müşterinin detay endpointine yönlendir
             return CreatedAtAction(nameof(GetCustomer), new { id = customer.CustomerId }, customer);
         }
 
-        [HttpPut]
-        public IActionResult UpdateCustomer(int id, Customer customer)
+        // Müşteri güncelle (id ve body'den)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateCustomer(int id, [FromBody] Customer customer)
         {
-            _context.Customers.Update(customer);
-            _context.SaveChanges();
-            return Ok("Müşteri Başarıyla Güncellendi.");
+            if (id != customer.CustomerId)
+            {
+                return BadRequest("ID uyuşmazlığı.");
+            }
 
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var existingCustomer = await _context.Customers.FirstOrDefaultAsync(c => c.CustomerId == id);
+            if (existingCustomer == null)
+            {
+                return NotFound();
+            }
+
+            // Güncelle
+            existingCustomer.CustomerName = customer.CustomerName;
+            existingCustomer.CustomerSurname = customer.CustomerSurname;
+            existingCustomer.CustomerBalance = customer.CustomerBalance;
+
+            await _context.SaveChangesAsync();
+
+            return Ok("Müşteri başarıyla güncellendi.");
         }
 
+        // Müşteri sil
         [HttpDelete("{id}")]
-        public IActionResult DeleteCustomer(int id)
+        public async Task<IActionResult> DeleteCustomer(int id)
         {
-            var customer = _context.Customers.FirstOrDefault(c => c.CustomerId == id);
+            var customer = await _context.Customers.FirstOrDefaultAsync(c => c.CustomerId == id);
             if (customer == null)
             {
                 return NotFound();
             }
+
             _context.Customers.Remove(customer);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
+
             return NoContent();
         }
 
+        // İsim ve soyisim ile arama
         [HttpGet("search")]
-        public IActionResult SearchCustomers(string name, string surname)
+        public async Task<IActionResult> SearchCustomers(string name, string surname)
         {
             var query = _context.Customers.AsQueryable();
+
             if (!string.IsNullOrEmpty(name))
             {
                 query = query.Where(c => c.CustomerName.Contains(name));
@@ -80,38 +117,33 @@ namespace DotAI.ApiShowcase.Controllers
             {
                 query = query.Where(c => c.CustomerSurname.Contains(surname));
             }
-            var customers = query.ToList();
+
+            var customers = await query.ToListAsync();
             return Ok(customers);
         }
 
-        [HttpGet]
-        public IActionResult CustomerList()
-        {
-            var customers = _context.Customers.ToList();
-            return Ok(customers);
-
-        }
-
+        // Pozitif bakiye olan müşteriler, büyükten küçüğe sırala
         [HttpGet("balance")]
-        public IActionResult ListCustomers()
+        public async Task<IActionResult> ListCustomersWithBalance()
         {
-            var customers = _context.Customers
+            var customers = await _context.Customers
                 .Where(c => c.CustomerBalance > 0)
                 .OrderByDescending(c => c.CustomerBalance)
-                .ToList();
-            return Ok(customers);
+                .ToListAsync();
 
+            return Ok(customers);
         }
 
+        // Minimum bakiye filtreli liste
         [HttpGet("balance/{minBalance}")]
-        public IActionResult MinBalanceList(decimal minBalance)
+        public async Task<IActionResult> MinBalanceList(decimal minBalance)
         {
-            var customers = _context.Customers
+            var customers = await _context.Customers
                 .Where(c => c.CustomerBalance >= minBalance)
                 .OrderByDescending(c => c.CustomerBalance)
-                .ToList();
+                .ToListAsync();
+
             return Ok(customers);
         }
-
     }
 }

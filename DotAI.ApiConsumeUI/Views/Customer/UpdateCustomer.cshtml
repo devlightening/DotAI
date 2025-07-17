@@ -1,0 +1,138 @@
+﻿@model UpdateCustomerDto
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Update Customer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1e1e2f, #2a2a40);
+            color: #f0f0f0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 60px auto;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 32px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #90cdf4;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            border: none;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #e0e0e0;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+            input[type="text"]:focus,
+            input[type="number"]:focus {
+                background-color: rgba(255, 255, 255, 0.2);
+                outline: none;
+            }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        button, a.button-link {
+            padding: 12px 25px;
+            font-weight: 600;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            background: #90cdf4;
+            color: #1e1e2f;
+            text-align: center;
+            text-decoration: none;
+            user-select: none;
+            transition: background 0.3s ease;
+        }
+
+            button:hover, a.button-link:hover {
+                background: #63b3ed;
+            }
+
+        a.button-link {
+            display: inline-block;
+            line-height: normal;
+        }
+
+        @@media screen and (max-width: 480px) {
+            .container {
+                margin: 30px 15px;
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            button, a.button-link {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Update Customer</h2>
+
+        <form asp-action="UpdateCustomer" asp-controller="Customers" method="post">
+            <input type="hidden" asp-for="CustomerId" />
+
+            <label asp-for="CustomerName"></label>
+            <input asp-for="CustomerName" type="text" required />
+
+            <label asp-for="CustomerSurname"></label>
+            <input asp-for="CustomerSurname" type="text" required />
+
+            <label asp-for="CustomerBalance"></label>
+            <input asp-for="CustomerBalance" type="number" step="0.01" required />
+
+            <div class="buttons">
+                <button type="submit">Update</button>
+                <a asp-action="CustomerList" asp-controller="Customers" class="button-link">Cancel</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

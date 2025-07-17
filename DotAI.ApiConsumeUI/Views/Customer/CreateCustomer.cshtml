@@ -1,0 +1,118 @@
+﻿@model CreateCustomerDto
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Add New Customer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    <style>
+        body {
+            background: linear-gradient(135deg, #1e1e2f, #2a2a40);
+            font-family: 'Inter', sans-serif;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #90cdf4;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            color: #cfd9e4;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 14px 16px;
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.08);
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 15px;
+        }
+
+        input::placeholder {
+            color: #aaa;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #3b82f6;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+            button:hover {
+                background-color: #2563eb;
+            }
+
+        .back-link {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+            .back-link a {
+                color: #90cdf4;
+                text-decoration: none;
+                font-size: 14px;
+            }
+
+                .back-link a:hover {
+                    text-decoration: underline;
+                }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Add New Customer</h2>
+        <form asp-controller="Customers" asp-action="CreateCustomer" method="post">
+            <label for="CustomerName">Name</label>
+            <input asp-for="CustomerName" type="text" placeholder="Enter name" required />
+
+            <label for="CustomerSurname">Surname</label>
+            <input asp-for="CustomerSurname" type="text" placeholder="Enter surname" required />
+
+            <label for="CustomerBalance">Balance</label>
+            <input asp-for="CustomerBalance" type="number" step="0.01" placeholder="Enter balance" required />
+
+            <button type="submit">Save Customer</button>
+        </form>
+        <div class="back-link">
+            <a asp-controller="Customers" asp-action="CustomerList">← Back to List</a>
+        </div>
+    </div>
+</body>
+</html>
