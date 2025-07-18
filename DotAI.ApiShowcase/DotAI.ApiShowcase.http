@@ -1,6 +1,0 @@
-@DotAI.ApiShowcase_HostAddress = http://localhost:5113
-
-GET {{DotAI.ApiShowcase_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
