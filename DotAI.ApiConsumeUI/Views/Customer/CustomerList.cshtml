@@ -1,203 +1,124 @@
 ﻿@model List<ResultCustomerDto>
 @{
-    Layout = null;
+    ViewData["Title"] = "Customer List";
 }
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>Customer Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #1e1e2f, #2a2a40);
-            color: #f0f0f0;
-        }
 
-        .container {
-            max-width: 1000px;
-            margin: 60px auto;
-            padding: 30px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+<style>
+    body {
+        font-family: 'Inter', sans-serif;
+        background: #1e1e2f;
+        color: #f0f0f0;
+        padding: 40px;
+    }
 
-        h2 {
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 32px;
-            font-weight: 600;
-            color: #ffffff;
-        }
+    .container {
+        max-width: 1000px;
+        margin: auto;
+        background: #2a2a40;
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
 
-        .top-actions {
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 20px;
-        }
+    h2 {
+        text-align: center;
+        color: #90cdf4;
+    }
 
-        .btn-create {
-            padding: 10px 18px;
-            background-color: #4ade80;
-            color: #000;
-            font-weight: 600;
-            border: none;
-            border-radius: 10px;
-            text-decoration: none;
-            font-size: 14px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
+    .top-actions {
+        text-align: right;
+        margin-bottom: 20px;
+    }
 
-            .btn-create:hover {
-                background-color: #22c55e;
-            }
+    .btn-create {
+        background: #4ade80;
+        color: black;
+        padding: 10px 16px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: bold;
+    }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            overflow: hidden;
-            border-radius: 12px;
-        }
+    table {
+        width: 100%;
+        margin-top: 20px;
+        border-collapse: collapse;
+    }
 
-        th, td {
-            padding: 16px 20px;
-            text-align: left;
-        }
+    th, td {
+        padding: 12px;
+        border-bottom: 1px solid #444;
+    }
 
-        th {
-            background-color: rgba(255, 255, 255, 0.08);
-            color: #90cdf4;
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 14px;
-            letter-spacing: 0.5px;
-        }
+    th {
+        background-color: #3c3c55;
+        color: #90cdf4;
+    }
 
-        td {
-            background-color: rgba(255, 255, 255, 0.03);
-            color: #e0e0e0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
+    tr:hover {
+        background-color: #3b3b50;
+    }
 
-        tr:hover td {
-            background-color: rgba(255, 255, 255, 0.08);
-            transition: 0.3s ease;
-        }
+    .btn {
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-weight: 600;
+        text-decoration: none;
+        margin-right: 5px;
+    }
 
-        .action-buttons {
-            display: flex;
-            gap: 10px;
-        }
+    .btn-update {
+        background-color: #38bdf8;
+        color: white;
+    }
 
-        .btn {
-            padding: 6px 12px;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: background-color 0.3s;
-        }
+    .btn-delete {
+        background-color: #ef4444;
+        color: white;
+        border: none;
+    }
+</style>
 
-        .btn-update {
-            background-color: #38bdf8;
-            color: #fff;
-        }
-
-            .btn-update:hover {
-                background-color: #0ea5e9;
-            }
-
-        .btn-delete {
-            background-color: #f87171;
-            color: #fff;
-        }
-
-            .btn-delete:hover {
-                background-color: #ef4444;
-            }
-
-        .no-data {
-            text-align: center;
-            margin-top: 20px;
-            font-style: italic;
-            color: #999;
-        }
-
-        @@media screen and (max-width: 768px) {
-            th, td {
-                padding: 12px 14px;
-                font-size: 14px;
-            }
-
-            h2 {
-                font-size: 24px;
-            }
-
-            .action-buttons {
-                flex-direction: column;
-            }
-
-            .top-actions {
-                justify-content: center;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="top-actions">
-            <a asp-controller="Customers" asp-action="CreateCustomer" class="btn-create">+ Create Customer</a>
-
-        </div>
-
-        <h2>Customer Dashboard</h2>
-
-        @if (Model != null && Model.Any())
-        {
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Surname</th>
-                        <th>Balance</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var customer in Model)
-                    {
-                        <tr>
-                            <td>@customer.CustomerId</td>
-                            <td>@customer.CustomerName</td>
-                            <td>@customer.CustomerSurname</td>
-                            <td>@customer.CustomerBalance.ToString("C", new System.Globalization.CultureInfo("tr-TR"))</td>
-                            <td>
-                                <div class="action-buttons">
-                                    <a asp-action="UpdateCustomer" asp-controller="Customers" asp-route-id="@customer.CustomerId" class="btn btn-update">Update</a>
-                                    <form asp-controller="Customers" asp-action="DeleteCustomer" asp-route-id="@customer.CustomerId" method="post" onsubmit="return confirm('Are you sure you want to delete this customer?');">
-                                        <button type="submit" class="btn btn-delete">Delete</button>
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        }
-        else
-        {
-            <div class="no-data">No customers found.</div>
-        }
+<div class="container">
+    <div class="top-actions">
+        <a asp-action="CreateCustomer" asp-controller="Customer" class="btn-create">+ Add New</a>
     </div>
-</body>
-</html>
+    <h2>Customer List</h2>
+
+    @if (Model != null && Model.Any())
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Balance</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.CustomerId</td>
+                        <td>@item.CustomerName</td>
+                        <td>@item.CustomerSurname</td>
+                        <td>@item.CustomerBalance ₺</td>
+                        <td>
+                            <a asp-action="UpdateCustomer" asp-controller="Customer" asp-route-id="@item.CustomerId" class="btn btn-update">Update</a>
+                            <form asp-action="DeleteCustomer" asp-controller="Customer" asp-route-id="@item.CustomerId" method="post" style="display:inline;">
+                                <button type="submit" class="btn btn-delete" onclick="return confirm('Delete this customer?');">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No customers found.</p>
+    }
+</div>

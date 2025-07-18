@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.13.35931.197 d17.13
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotAI.ApiShowcase", "DotAI.ApiShowcase\DotAI.ApiShowcase.csproj", "{B8B57B0B-B26B-436E-B6AD-7FF3A194657E}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotAI.ApiConsumeUI", "DotAI.ApiConsumeUI\DotAI.ApiConsumeUI.csproj", "{18B3BA8E-E555-4C80-92E2-B83C206338F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotAI.ApiShowcaseAPI", "DotAI.ApiShowcaseAPI\DotAI.ApiShowcaseAPI.csproj", "{10066AD4-5899-4F46-BDAA-E54D5A4450D4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B8B57B0B-B26B-436E-B6AD-7FF3A194657E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B8B57B0B-B26B-436E-B6AD-7FF3A194657E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B8B57B0B-B26B-436E-B6AD-7FF3A194657E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B8B57B0B-B26B-436E-B6AD-7FF3A194657E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{18B3BA8E-E555-4C80-92E2-B83C206338F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{18B3BA8E-E555-4C80-92E2-B83C206338F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18B3BA8E-E555-4C80-92E2-B83C206338F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18B3BA8E-E555-4C80-92E2-B83C206338F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10066AD4-5899-4F46-BDAA-E54D5A4450D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10066AD4-5899-4F46-BDAA-E54D5A4450D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10066AD4-5899-4F46-BDAA-E54D5A4450D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10066AD4-5899-4F46-BDAA-E54D5A4450D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

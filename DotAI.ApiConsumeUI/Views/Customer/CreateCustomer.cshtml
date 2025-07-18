@@ -1,118 +1,81 @@
-﻿@model CreateCustomerDto
+﻿@model DotAI.ApiConsumeUI.Dtos.CreateCustomerDto
 @{
-    Layout = null;
+    ViewData["Title"] = "Create Customer";
 }
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>Add New Customer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
-    <style>
-        body {
-            background: linear-gradient(135deg, #1e1e2f, #2a2a40);
-            font-family: 'Inter', sans-serif;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-        }
+<style>
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: #1e1e2f;
+        color: #fff;
+        padding: 40px;
+    }
 
-        .form-container {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(12px);
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            width: 100%;
-            max-width: 500px;
-        }
+    .form-container {
+        background: #2a2a40;
+        padding: 30px;
+        border-radius: 20px;
+        max-width: 500px;
+        margin: auto;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
 
-        h2 {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #90cdf4;
-        }
+    h2 {
+        text-align: center;
+        color: #90cdf4;
+    }
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            font-size: 14px;
-            color: #cfd9e4;
-        }
+    label {
+        display: block;
+        margin-top: 15px;
+    }
 
-        input[type="text"],
-        input[type="number"] {
-            width: 100%;
-            padding: 14px 16px;
-            margin-bottom: 20px;
-            background: rgba(255, 255, 255, 0.08);
-            border: none;
-            border-radius: 10px;
-            color: #fff;
-            font-size: 15px;
-        }
+    input {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        background: #3b3b50;
+        border: none;
+        border-radius: 10px;
+        color: white;
+    }
 
-        input::placeholder {
-            color: #aaa;
-        }
+    button {
+        width: 100%;
+        padding: 12px;
+        margin-top: 20px;
+        background-color: #3b82f6;
+        border: none;
+        border-radius: 10px;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+    }
 
-        button {
-            width: 100%;
-            padding: 14px;
-            background-color: #3b82f6;
-            border: none;
-            border-radius: 10px;
-            font-weight: 600;
-            color: #fff;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
+    a {
+        display: block;
+        text-align: center;
+        margin-top: 15px;
+        color: #90cdf4;
+        text-decoration: none;
+    }
+</style>
 
-            button:hover {
-                background-color: #2563eb;
-            }
+<div class="form-container">
+    <h2>Create Customer</h2>
 
-        .back-link {
-            margin-top: 20px;
-            text-align: center;
-        }
+    <form asp-action="CreateCustomer" asp-controller="Customer" method="post">
+        <label asp-for="CustomerName">Name</label>
+        <input asp-for="CustomerName" type="text" required />
 
-            .back-link a {
-                color: #90cdf4;
-                text-decoration: none;
-                font-size: 14px;
-            }
+        <label asp-for="CustomerSurname">Surname</label>
+        <input asp-for="CustomerSurname" type="text" required />
 
-                .back-link a:hover {
-                    text-decoration: underline;
-                }
-    </style>
-</head>
-<body>
-    <div class="form-container">
-        <h2>Add New Customer</h2>
-        <form asp-controller="Customers" asp-action="CreateCustomer" method="post">
-            <label for="CustomerName">Name</label>
-            <input asp-for="CustomerName" type="text" placeholder="Enter name" required />
+        <label asp-for="CustomerBalance">Balance</label>
+        <input asp-for="CustomerBalance" type="number" step="0.01" required />
 
-            <label for="CustomerSurname">Surname</label>
-            <input asp-for="CustomerSurname" type="text" placeholder="Enter surname" required />
+        <button type="submit">Save</button>
+    </form>
 
-            <label for="CustomerBalance">Balance</label>
-            <input asp-for="CustomerBalance" type="number" step="0.01" placeholder="Enter balance" required />
-
-            <button type="submit">Save Customer</button>
-        </form>
-        <div class="back-link">
-            <a asp-controller="Customers" asp-action="CustomerList">← Back to List</a>
-        </div>
-    </div>
-</body>
-</html>
+    <a asp-action="CustomerList" asp-controller="Customer">← Back to List</a>
+</div>

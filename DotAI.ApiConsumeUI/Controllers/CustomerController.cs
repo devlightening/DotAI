@@ -14,10 +14,11 @@ namespace DotAI.ApiConsumeUI.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
+        // Listeleme
         public async Task<IActionResult> CustomerList()
         {
             var client = _httpClientFactory.CreateClient();
-            var response = await client.GetAsync("https://localhost:7291/api/customers");
+            var response = await client.GetAsync("https://localhost:7164/api/customers");
             if (response.IsSuccessStatusCode)
             {
                 var jsonData = await response.Content.ReadAsStringAsync();
@@ -27,63 +28,73 @@ namespace DotAI.ApiConsumeUI.Controllers
             return View();
         }
 
+        // GET: Müşteri oluşturma formunu aç
+        [HttpGet]
+        public IActionResult CreateCustomer()
+        {
+            return View();
+        }
+
+        // POST: Yeni müşteri oluştur
+        [HttpPost]
         public async Task<IActionResult> CreateCustomer(CreateCustomerDto createCustomerDto)
         {
             var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(createCustomerDto);
             var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var response = await client.PostAsync("https://localhost:7291/api/customers", content);
+            var response = await client.PostAsync("https://localhost:7164/api/customers", content);
             if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction("CustomerList");
             }
             return View();
-
-
         }
 
-        // GET: Customers/UpdateCustomer/5  --> Güncelleme formunu açmak için
+        // GET: Güncelleme formu
         [HttpGet]
         public async Task<IActionResult> UpdateCustomer(int id)
         {
             var client = _httpClientFactory.CreateClient();
-            var response = await client.GetAsync($"https://localhost:7291/api/customers/{id}");
+            var response = await client.GetAsync($"https://localhost:7164/api/customers/{id}");
             if (response.IsSuccessStatusCode)
             {
                 var jsonData = await response.Content.ReadAsStringAsync();
-                var customer = JsonConvert.DeserializeObject<ResultCustomerDto>(jsonData);
+                var customer = JsonConvert.DeserializeObject<UpdateCustomerDto>(jsonData);
                 return View(customer);
             }
             return NotFound();
         }
 
-        // POST: Customers/UpdateCustomer/5  --> Formdan gelen güncellemeyi API'ye gönder
+        // POST: Güncelleme işlemi
         [HttpPost]
-        public async Task<IActionResult> UpdateCustomer(int id, ResultCustomerDto model)
+        public async Task<IActionResult> UpdateCustomer(UpdateCustomerDto updateCustomerDto)
         {
-            if (id != model.CustomerId)
-            {
-                return BadRequest("ID mismatch");
-            }
-
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
             var client = _httpClientFactory.CreateClient();
-            var jsonData = JsonConvert.SerializeObject(model);
+            var jsonData = JsonConvert.SerializeObject(updateCustomerDto);
             var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-
-            var response = await client.PutAsync($"https://localhost:7291/api/customers/{id}", content);
+            var response = await client.PutAsync($"https://localhost:7164/api/customers/{updateCustomerDto.CustomerId}", content);
 
             if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction(nameof(CustomerList));
+                return RedirectToAction("CustomerList");
             }
 
-            ModelState.AddModelError(string.Empty, "Güncelleme sırasında hata oluştu.");
-            return View(model);
+            return View(updateCustomerDto);
+        }
+
+        // POST: Müşteri sil
+        [HttpPost]
+        public async Task<IActionResult> DeleteCustomer(int id)
+        {
+            var client = _httpClientFactory.CreateClient();
+            var response = await client.DeleteAsync($"https://localhost:7164/api/customers/{id}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction("CustomerList");
+            }
+
+            return BadRequest("Silme işlemi başarısız.");
         }
     }
 }
