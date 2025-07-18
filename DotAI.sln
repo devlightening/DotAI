@@ -1,11 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35931.197 d17.13
+VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotAI.ApiConsumeUI", "DotAI.ApiConsumeUI\DotAI.ApiConsumeUI.csproj", "{18B3BA8E-E555-4C80-92E2-B83C206338F6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotAI.ApiShowcaseAPI", "DotAI.ApiShowcaseAPI\DotAI.ApiShowcaseAPI.csproj", "{10066AD4-5899-4F46-BDAA-E54D5A4450D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotAI.RapidApi", "DotAI.RapidApi\DotAI.RapidApi.csproj", "{3DEDAA80-6F70-44DF-A307-32D59E578E62}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotAI.OpenAIChat", "DotAI.OpenAIChat\DotAI.OpenAIChat.csproj", "{2FD04DC8-1E36-4717-97DB-82D68D3B2C56}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{10066AD4-5899-4F46-BDAA-E54D5A4450D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10066AD4-5899-4F46-BDAA-E54D5A4450D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{10066AD4-5899-4F46-BDAA-E54D5A4450D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DEDAA80-6F70-44DF-A307-32D59E578E62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DEDAA80-6F70-44DF-A307-32D59E578E62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DEDAA80-6F70-44DF-A307-32D59E578E62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DEDAA80-6F70-44DF-A307-32D59E578E62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FD04DC8-1E36-4717-97DB-82D68D3B2C56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FD04DC8-1E36-4717-97DB-82D68D3B2C56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FD04DC8-1E36-4717-97DB-82D68D3B2C56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FD04DC8-1E36-4717-97DB-82D68D3B2C56}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
