@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotAI.RapidApi", "DotAI.Rap
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotAI.OpenAIChat", "DotAI.OpenAIChat\DotAI.OpenAIChat.csproj", "{2FD04DC8-1E36-4717-97DB-82D68D3B2C56}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotAI.huggingfaceImageGeneration", "DotAI.huggingfaceImageGeneration\DotAI.huggingfaceImageGeneration.csproj", "{B748992B-83E5-4289-84A3-98F746F778BA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{2FD04DC8-1E36-4717-97DB-82D68D3B2C56}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2FD04DC8-1E36-4717-97DB-82D68D3B2C56}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2FD04DC8-1E36-4717-97DB-82D68D3B2C56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B748992B-83E5-4289-84A3-98F746F778BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B748992B-83E5-4289-84A3-98F746F778BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B748992B-83E5-4289-84A3-98F746F778BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B748992B-83E5-4289-84A3-98F746F778BA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
